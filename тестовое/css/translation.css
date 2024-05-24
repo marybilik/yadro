@@ -1,0 +1,189 @@
+
+.container {
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+}
+
+
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.player {
+    flex: 1;
+    position: relative;
+    width: 590px;
+    height:
+
+}
+
+
+
+.chat {
+    width: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-header {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.chat-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.chat-tab.active {
+    background: #333;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.input-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-message input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.input-message button {
+    padding: 10px 20px;
+    border: none;
+    background: #0095f6;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.input-message button:hover {
+    background: #007bb5;
+}
+
+
+
+
+body, html {
+    
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('assets/фон.png') no-repeat fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logo {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.registrationbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    width: 151px;
+    height: 48px;
+    right: 40px;
+    top: 35px;
+}
+
+.registration {
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 138%;
+    color: #FFFFFF;
+}
+
+.usercircle {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+
+.usercircle div {
+    position: absolute;
+    border: 1.5px solid #FFFFFF;
+}
+
+.vector1 {
+    width: 30px;
+    height: 0;
+    top: 32px;
+    left: 9px;
+    transform: rotate(45deg);
+}
+
+.vector2 {
+    width: 30px;
+    height: 0;
+    top: 12px;
+    left: 15px;
+    transform: rotate(-45deg);
+}
+
+.vector3 {
+    width: 48px;
+    height: 48px;
+}
+
+.vector4 {
+    width: 72px;
+    height: 72px;
+    top: -12px;
+    left: -12px;
+}
