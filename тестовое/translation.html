@@ -98,7 +98,15 @@
         function handleButtonClick() {
             toggleSendMessage();
             togglehideButton();
-            togglechangeReg();
+            extractUserNameFromLocalStorage();
+        }
+
+        function extractUserNameFromLocalStorage() {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                togglechangeReg(userName); // Передаем userName в функцию togglechangeReg()
+                updateChatUserName(userName);
+            }
         }
 
         // Toggle between chat and QA tabs
@@ -113,9 +121,15 @@
             });
         });
 
-        function togglechangeReg() {
+        function updateChatUserName(userName) {
+        
+            document.querySelector('.change-name-text').innerText = "Имя в чате: " + userName;
+   
+
+        }
+        function togglechangeReg(userName) {
             // Меняем текст "Регистрация" на "Имя пользователя"
-            document.querySelector(".regtext").innerText = "Имя пользователя";
+            document.querySelector(".regtext").innerText = userName;
 
             // Добавляем иконку выхода из аккаунта
             const logoutIcon = document.createElement("img");
@@ -126,22 +140,7 @@
             document.querySelector(".reg").appendChild(logoutIcon);
         }
 
-        function updateChatUserName(userName) {
-            document.querySelector('.change-name-text').innerText = `Имя в чате: ${userName}`;
-        }
-
-        function extractUserNameFromLocalStorage() {
-            const userName = localStorage.getItem('userName');
-            if (userName) {
-                toggleChangeReg(userName);
-                updateChatUserName(userName);
-            }
-        }
-
-        // Проверяем наличие сохраненного имени пользователя при загрузке страницы
-        window.onload = extractUserNameFromLocalStorage;
-
-        // Function to hide buttonand show SMS input field
+        // Function to hide button and show SMS input field
         function togglehideButton() {
             document.querySelector('.toggle-send-message-button').classList.add('hidden');
             document.getElementById('send-message-container').classList.remove('hidden');
@@ -228,13 +227,6 @@
             }
         }
          
-        function extractUserNameFromLocalStorage() {
-                const userName = localStorage.getItem('userName');
-                if (userName) {
- 
-                    document.querySelector('.change-name-text').innerText = `Имя в чате: ${userName}`;
-                }
-            }
 
         let messageCounter = 0;
 
