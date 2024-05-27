@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <img src="assets/logo.svg" alt="logo" class="logo">
+    </header>
+    <main>
+        <div class="form-container-with-tabs">
+            <div class="tabs">
+                <div class="tab tab1 active" onclick="showTab('reg')">
+                    <div class="tab1text">Регистрация</div>
+                    <div class="underline"></div>
+                </div>
+                <div class="tab tab2" onclick="showTab('login')">
+                    <div class="tab2text">Код доступа</div>
+                    <div class="underline"></div>
+                </div>
+            </div>
+            
+
+            <form class="form-container" id="registration-form" onsubmit="onRegister(event); saveUserInfo()">
+                <div class="formfields">
+
+                    <div class="fields">
+                        <div class="fieldsreg">
+                        
+                            <div class="fieldtext">Данные для авторизации</div>
+
+                                 <!-- Inputed State -->
+                                <div class="form-container-fields default-state hover-state">
+                                    <div class="field-title-container">
+                                        <div class="field-title">
+                                            <span>Электронная почта</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field-container">
+                                        <input type="text" class="input-field" placeholder="my_email@mail.ru" id="user-mail"> 
+                                        <img src="assets/star.svg" alt="icon" class="icon">
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="fieldsother">
+
+                            <div class="otherdata">Прочие данные</div>
+
+                                <!-- Hover State -->
+                                <div class="form-container-fields default-state hover-state">
+                                    <div class="field-title-container">
+                                        <div class="field-title">
+                                            <span>Фамилия</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field-container">
+                                        <input type="text" class="input-field" placeholder="Ваша фамилия" id="user-surname">
+                                        <img src="assets/star.svg" alt="icon" class="icon">
+                                    </div>
+                                </div>   
+                                
+                                <div class="form-container-fields default-state hover-state">
+                                    <div class="field-title-container">
+                                        <div class="field-title">
+                                            <span>Имя</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field-container">
+                                        <input type="text" class="input-field" placeholder="Ваше имя" id="user-name">
+                                        <img src="assets/star.svg" alt="icon" class="icon">
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btnpr">
+                                <div class="buttontext">Отправить</div>   
+                            </button>
+                        
+                </div>
+                <div class="note">* поле, обязательное для заполнения</div>
+                
+            </form>
+                
+            
+        
+        
+        
+        
+            <form class="form-container1" id="access-code-form" style="display: none;">
+                
+                    <div class="form-fields">
+
+                        <div class="form-container-fields default-state hover-state">
+                            <div class="field-title-container">
+                                <div class="field-title">
+                                    <span>Укажите электронную почту для восстановления кода</span>
+                                </div>
+                            </div>
+                            <div class="input-field-container">
+                                <input type="email" class="input-field" placeholder="mail@mail.com">
+                                <img src="assets/star.svg" alt="icon" class="icon">
+                            </div>
+                        </div>   
+             
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btnpr" onclick="saveUserInfo()">
+                        <div class="buttontext">Отправить код</div>
+                    </button>
+
+            </form>
+        </div>
+        
+        
+        
+        
+    </main>
+
+    
+    <script>
+
+        
+
+        function saveUserInfo() {
+    // Получаем текущие данные из localStorage
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Получаем введенные данные и удаляем лишние пробелы
+    const userMail = document.getElementById('user-mail').value.trim();
+    const userSurName = document.getElementById('user-surname').value.trim();
+    const userName = document.getElementById('user-name').value.trim();
+
+    // Выводим данные для проверки
+    console.log("Email:", userMail);
+    console.log("Surname:", userSurName);
+    console.log("Name:", userName);
+
+    // Создаем объект для нового пользователя
+    const newUser = {
+        mail: userMail,
+        surname: userSurName,
+        name: userName
+    };
+
+    // Добавляем нового пользователя в массив
+    users.push(newUser);
+
+    // Сохраняем обновленный массив обратно в localStorage
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('userName', userName);
+
+    // Обновляем интерфейс
+    togglechangeReg(userName);
+    updateChatUserName(userName);
+    document.getElementById('registrationPage').classList.add('hidden');
+
+    window.location.href = 'translation.html';
+}
+
+        function showTab(tabName) {
+          const formcontainer = document.getElementById('registration-form');
+          const formcontainer1 = document.getElementById('access-code-form');
+      
+          if (!formcontainer || !formcontainer1) {
+            console.error('One or both form containers are missing in the DOM.');
+            return;
+          }
+      
+          if (tabName === 'reg') {
+            formcontainer.style.display = 'flex';
+            formcontainer1.style.display = 'none';
+      
+            document.querySelector('.tab.active').classList.remove('active');
+            document.querySelector('.tab[onclick*="' + tabName + '"]').classList.add('active');
+          } else if (tabName === 'login') {
+            formcontainer1.style.display = 'flex';
+            formcontainer.style.display = 'none';
+      
+            document.querySelector('.tab.active').classList.remove('active');
+            document.querySelector('.tab[onclick*="' + tabName + '"]').classList.add('active');
+          }
+        }
+      
+        function onRegister(event) {
+          event.preventDefault();
+          alert('Форма регистрации отправлена');
+          window.location.href = "translation_input.html"
+        }
+      
+        function onAccessCode(event) {
+          event.preventDefault();
+          alert('Код доступа отправлен');
+        }
+      </script>
+</body>
+</html>

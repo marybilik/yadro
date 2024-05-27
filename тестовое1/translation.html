@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плеер</title>
+    <link rel="stylesheet" href="translation.css">
+</head>
+<body id="registrationPage">
+
+        
+        <header>
+            <div class="logo">
+                <img src="assets/logo.svg" alt="logo">
+            </div>
+            <div class="reg">
+                <div class="regtext">Регистрация</div>
+                <a href="registration.html" target="_blank">
+                    <img src="assets/profile.svg" alt="profile">
+
+                </a>
+                
+            </div>
+            
+        </header>
+        <div class="player">
+            <div class="container">
+        
+            <div class="video">
+                
+                <iframe width="1050" height="648" src="https://www.youtube.com/embed/qs2UZJdq6Tk" title="Завод YADRO - один из ведущих производителей высокотехнологичного оборудования в России" frameborder="1" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="chat-container">
+                <div class="chat-container1">
+                    <div class="chat-container2">
+                        <div class="tabs">
+                            <button class="tab active" data-tab="chat">
+                                <div class="tabtext">Чат</div>
+                                <div class="underline"></div>
+                            </button>
+                            <button class="tab" data-tab="qa">
+                                <div class="tabtext">Вопрос / ответ</div>
+                                <div class="underline"></div>
+                            </button>
+                        </div>
+                        <div class="messages" id="chat">
+                            <div class="message">
+                                <div class="message-title-text">
+                                    <span class="user-name">Женя</span>
+                                    <span class="message-text">Всем привет</span>
+                                </div>
+                                <div class="likes-icon-num">
+                                    <img src="assets/like.svg" alt="like" class="likes" onclick="updateLike(this)">
+                                    <span class="num-likes">11</span>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="messages hidden" id="qa">
+                        <!-- QA messages go here -->
+                    </div>
+                    <div class="send-message hidden" id="send-message-container">
+                        <div class="input-form-name">
+                            <div class="input-form">
+                                <div class="input-field">
+                                    <div class="form-container-fields default-state hover-state">
+                                        <div class="input-field-container">
+                                            <input type="text" id="messageInput" class="input-field" placeholder="Текст">
+                                            <img src="assets/smile.svg" alt="icon" class="icon">
+                                        </div>
+                                    </div>   
+                                    
+                                </div>
+                                <button class="send-button" onclick="sendMessage()">
+                                    <div class="button-text" >Отправить</div> 
+                                </button>
+                            </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+            
+                <button class="toggle-send-message-button" onclick="handleButtonClick()">
+                    Хотите отправить сообщение? Кликните на эту кнопку
+                </button>
+            </div>
+            </div>
+        
+    </div>
+    </div>
+
+    <script>
+
+        function handleButtonClick() {
+            toggleSendMessage();
+            togglehideButton();
+           
+        }
+
+        function extractUserNameFromLocalStorage() {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                togglechangeReg(userName);
+                updateChatUserName(userName);
+                // Добавьте код для скрытия формы регистрации после успешного входа
+                document.getElementById('registrationForm').classList.add('hidden');
+            }
+        }
+
+
+        // Toggle between chat and QA tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const tabId = tab.getAttribute('data-tab');
+                document.querySelectorAll('.messages').forEach(m => m.classList.add('hidden'));
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+
+        function updateChatUserName(userName) {
+        
+            document.querySelector('.change-name-text').innerText = "Имя в чате: " + userName;
+   
+
+        }
+        function togglechangeReg(userName) {
+            // Меняем текст "Регистрация" на "Имя пользователя"
+            document.querySelector(".regtext").innerText = userName;
+
+            // Добавляем иконку выхода из аккаунта
+            const logoutIcon = document.createElement("img");
+            logoutIcon.src = "assets/exit.svg"; // путь к изображению иконки выхода
+            logoutIcon.alt = "Logout Icon";
+            logoutIcon.classList.add("logout-icon");
+
+            document.querySelector(".reg").appendChild(logoutIcon);
+            logoutIcon.addEventListener("click", function() {
+            
+            window.location.href = "registration.html";
+        });
+        }
+
+        // Function to hide button and show SMS input field
+        function togglehideButton() {
+            document.querySelector('.toggle-send-message-button').classList.add('hidden');
+            document.getElementById('send-message-container').classList.remove('hidden');
+        }
+
+        // Toggle send message input
+        function toggleSendMessage() {
+            const sendMessageContainer = document.getElementById('send-message-container');
+            sendMessageContainer.classList.toggle('hidden');
+        }
+
+        // Send a new message
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+
+            if (message.trim() === '') {
+                return;
+            }
+
+            const chatContainer = document.getElementById('chat');
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message');
+
+            // Создание контейнера для имени пользователя и текста сообщения
+            const messageTitleText = document.createElement('div');
+            messageTitleText.classList.add('message-title-text');
+
+            const userName = document.createElement('span');
+            userName.classList.add('user-name');
+            userName.textContent = 'Вы';
+
+            const messageText = document.createElement('span');
+            messageText.classList.add('message-text');
+            messageText.textContent = message;
+
+            // Добавляем имя пользователя и текст сообщения в контейнер
+            messageTitleText.appendChild(userName);
+            messageTitleText.appendChild(messageText);
+
+            // Создание контейнера для лайков
+            const likesIconNum = document.createElement('div');
+            likesIconNum.classList.add('likes-icon-num');
+
+            const likeImg = document.createElement('img');
+            likeImg.src = 'assets/like.svg';
+            likeImg.alt = 'like';
+            likeImg.classList.add('likes');
+            likeImg.onclick = function() { updateLike(likeImg); };
+
+            const numLikes = document.createElement('span');
+            numLikes.classList.add('num-likes');
+            numLikes.textContent = '0';
+
+            // Добавляем иконку лайка и количество лайков в контейнер
+            likesIconNum.appendChild(likeImg);
+            likesIconNum.appendChild(numLikes);
+
+            // Добавляем оба контейнера в новое сообщение
+            newMessage.appendChild(messageTitleText);
+            newMessage.appendChild(likesIconNum);
+
+            chatContainer.appendChild(newMessage);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            messageInput.value = '';
+        }
+
+
+        // Update like image based on number of likes
+        function updateLike(likeImg) {
+            const numLikesSpan = likeImg.nextElementSibling;
+            let numLikes = parseInt(numLikesSpan.textContent, 10);
+            
+            numLikes++;
+            numLikesSpan.textContent = numLikes;
+
+            if (numLikes >= 20) {
+                likeImg.src = 'assets/like3.svg';
+            } else if (numLikes >= 10) {
+                likeImg.src = 'assets/like2.svg';
+            } else {
+                likeImg.src = 'assets/like.svg';
+            }
+        }
+         
+
+        let messageCounter = 0;
+
+        function addMessage(userName, text) {
+            const chatContainer = document.getElementById('chat');
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message');
+
+            const userNameElem = document.createElement('span');
+            userNameElem.classList.add('user-name');
+            userNameElem.textContent = userName;
+
+            const messageTextElem = document.createElement('span');
+            messageTextElem.classList.add('message-text');
+            messageTextElem.textContent = text;
+
+            newMessage.appendChild(userNameElem);
+            newMessage.appendChild(messageTextElem);
+
+            chatContainer.appendChild(newMessage);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
+
