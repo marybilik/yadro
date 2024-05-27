@@ -163,7 +163,7 @@ body, html {
     background-color: transparent;
     padding: 0px;
     gap: 10px;
-
+    cursor: pointer;
     width: 32px;
     height: 28px;
 
