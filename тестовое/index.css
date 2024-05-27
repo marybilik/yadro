@@ -55,6 +55,7 @@ body, html {
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
+    cursor: pointer;
 }
 
 .tab1text, .tab2text {
