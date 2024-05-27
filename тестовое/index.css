@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: 'Proxima Nova';
-    src: url('proximanova_regular.ttf') format('opentype'); /* Поменяйте в зависимости от формата */
+    src: url('proximanova_regular.ttf') format('opentype'); 
 }
 
 body, html {
@@ -225,12 +225,12 @@ body, html {
     padding: 19px 30px; /* Removed bottom padding */
     gap: 10px; 
     width: 420px; 
-    height: auto; /* Adjusted to auto */
-    background-color: #1E22AA; /* Changed to background-color */
-    border-radius: 10px; /* Corrected typo */
-    color: white; /* Added text color */
-    border: none; /* Removed border */
-    cursor: pointer; /* Added pointer cursor */
+    height: auto; 
+    background-color: #1E22AA; 
+    border-radius: 10px; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
 }
 
 .buttontext{
